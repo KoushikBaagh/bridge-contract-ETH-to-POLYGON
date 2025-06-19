@@ -1,6 +1,17 @@
+import express from 'express';
+import cors from 'cors';
 import { ethers } from "ethers";
 import dotenv from "dotenv";
+
 dotenv.config();
+
+const app = express();
+
+app.use(cors({
+  origin: 'https://bridge-contract-eth-to-polygon.vercel.app/'
+}));
+
+app.use(express.json());
 
 const private_key = process.env.PRIVATE_KEY;
 const sepolia_rpc_url = process.env.SEPOLIA_RPC_URL;
@@ -45,4 +56,29 @@ const eventheard = async(user, amount)=>{
 
 eth_contract_object.on("LockETH", (user, amount, event) => {
     eventheard(user, amount, event);
+});
+
+// Express endpoints
+app.get('/health', (req, res) => {
+    res.json({ 
+        status: 'OK', 
+        message: 'Bridge backend is running',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/bridge-status', (req, res) => {
+    res.json({
+        ethBridgeAddress: eth_bridge_address,
+        polygonBridgeAddress: polygon_bridge_address,
+        status: 'Listening for bridge events'
+    });
+});
+
+// Start server
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Bridge backend server running on port ${PORT}`);
+    console.log(`Health check: http://localhost:${PORT}/health`);
+    console.log('Listening for ETH bridge events...');
 });
