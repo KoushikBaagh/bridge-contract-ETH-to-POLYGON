@@ -1,32 +1,3 @@
-// // import './App.css'
-// import React , { useState } from 'react'
-// import AppPage from './AppPage'
-
-// function App() {
-//   // const [wallet, setWallet] = useState(null);
-//   // const [account, setAccount] = useState("");
-//   // const [signer, setSigner] = useState(null);
-//   // const [form, setForm] = useState("");
-//   // const [status, setStatus] = useState("");
-
-//   // async function connectWallet(params) {
-//   //   const provider = new ethers.providers.Web3Provider(window.ethereum)
-//   //   await provider.send("eth_requestAccounts", []);
-//   //   const signer = provider.getSigner()
-//   // }
-
-//   return (
-//     <div>
-//       {/* "Hi there"
-//       <br/>
-//       <button onClick={connectWallet}>Connect Wallet</button> */}
-//       <AppPage/>
-//     </div>
-//   )
-// }
-
-// export default App
-
 import "./App.css";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
